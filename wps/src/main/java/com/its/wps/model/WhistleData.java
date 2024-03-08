@@ -6,8 +6,7 @@ import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import lombok.*;
 import jakarta.persistence.Id;
-import org.json.JSONObject;
-
+import org.hibernate.annotations.ColumnTransformer;
 
 @Entity
 @Getter
@@ -21,7 +20,8 @@ public class WhistleData {
     private String user_id;
     @Column(columnDefinition = "jsonb")
     @Convert(converter = JsonObjectStringConverter.class)
-    private JSONObject whistle_object;
+    @ColumnTransformer(write = "?::jsonb")
+    private Whistle whistle_object;
     private String bs64_image;
     private String timestamp;
 }

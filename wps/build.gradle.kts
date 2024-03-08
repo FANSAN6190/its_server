@@ -32,6 +32,9 @@ dependencies {
     implementation("jakarta.json:jakarta.json-api:2.0.1")
     implementation("io.github.cdimascio:java-dotenv:5.2.0")
     implementation("org.json:json:20240303")
+    implementation("org.postgresql:postgresql:42.7.2")
+    implementation("com.google.code.gson:gson:2.10.1")
+    implementation("org.hibernate:hibernate-core:6.4.1.Final")
 
 }
 
