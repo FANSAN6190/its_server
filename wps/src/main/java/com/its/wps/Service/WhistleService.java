@@ -16,6 +16,7 @@ import java.util.List;
 public class WhistleService {
 
     private final WhistleRepository whistleRepository;
+    private final StoreService storeWhistle;
 
     public void createWhistle(WhistleRequest whistleRequest){
         Whistle whistle = Whistle.builder()
@@ -28,7 +29,9 @@ public class WhistleService {
                 .timestamp(whistleRequest.getTimestamp())
                 .build();
         whistleRepository.save(whistle);
-        log.info("Whistle :: {} is Registered", whistle.getWid());
+
+        storeWhistle.storeWhistleData(whistle);
+        log.info("Got Whistle :: {}", whistle.getWid());
     }
 
     public List<WhistleResponse> getAllWhistles(){

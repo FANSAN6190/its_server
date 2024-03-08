@@ -28,8 +28,13 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("jakarta.json:jakarta.json-api:2.0.1")
+    implementation("io.github.cdimascio:java-dotenv:5.2.0")
+    implementation("org.json:json:20240303")
 
 }
+
 
 tasks.withType<Test> {
     useJUnitPlatform()
