@@ -16,7 +16,7 @@ public class JsonObjectStringConverter implements AttributeConverter<Whistle, St
         try {
             return objectMapper.writeValueAsString(whistleObj);
         } catch (JsonProcessingException jpe) {
-            log.warn("Cannot convert Address into JSON");
+            log.warn("Cannot convert Whistle Object into JSON");
             return null;
         }
     }
@@ -26,7 +26,7 @@ public class JsonObjectStringConverter implements AttributeConverter<Whistle, St
         try {
             return objectMapper.readValue(dbData, Whistle.class);
         } catch (JsonProcessingException e) {
-            log.warn("Cannot convert JSON into Address");
+            log.warn("Cannot convert JSON into Whistle Object");
             return null;
         }
     }

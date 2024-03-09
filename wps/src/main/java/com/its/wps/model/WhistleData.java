@@ -1,12 +1,12 @@
 package com.its.wps.model;
 
 import com.its.wps.dto.JsonObjectStringConverter;
-import jakarta.persistence.Column;
-import jakarta.persistence.Convert;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.*;
-import jakarta.persistence.Id;
 import org.hibernate.annotations.ColumnTransformer;
+
+import java.io.Serializable;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -14,14 +14,21 @@ import org.hibernate.annotations.ColumnTransformer;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class WhistleData {
+@Table(name = "whistle_data")
+public class WhistleData implements Serializable {
     @Id
-    private String whistle_id;
-    private String user_id;
-    @Column(columnDefinition = "jsonb")
+    @Builder.Default
+    @Column(name = "whistle_id")
+    private String whistleId = UUID.randomUUID().toString();
+
+    @Column(name = "user_id")
+    private String userId;
+    @Column(name = "whistle_obj",columnDefinition = "jsonb")
     @Convert(converter = JsonObjectStringConverter.class)
     @ColumnTransformer(write = "?::jsonb")
-    private Whistle whistle_object;
-    private String bs64_image;
+    private Whistle whistleObj;
+    @Column(name = "binary_image")
+    private String binaryImage;
+    @Column(name = "timestamp")
     private String timestamp;
 }

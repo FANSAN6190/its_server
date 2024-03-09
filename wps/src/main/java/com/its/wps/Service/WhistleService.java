@@ -1,11 +1,14 @@
 package com.its.wps.Service;
 
-import com.its.wps.Repository.WhistleRepository;
+import com.its.wps.Repository.WhistleDataRepository;
 import com.its.wps.dto.WhistleRequest;
 import com.its.wps.dto.WhistleResponse;
 import com.its.wps.model.Whistle;
+import com.its.wps.model.WhistleData;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,41 +17,43 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class WhistleService {
-
-    private final WhistleRepository whistleRepository;
-    private final StoreService storeWhistle;
-
+    private final WhistleDataRepository whistleDataRepository;
     public void createWhistle(WhistleRequest whistleRequest){
-        Whistle whistle = Whistle.builder()
+        Whistle whistleObj = Whistle.builder()
                 .category(whistleRequest.getCategory())
                 .subcategory(whistleRequest.getSubcategory())
                 .latitude(whistleRequest.getLatitude())
                 .longitude(whistleRequest.getLongitude())
-                .bs64_image(whistleRequest.getBs64_image())
-                .user_rating(whistleRequest.getUser_rating())
+                .userRating(whistleRequest.getUserRating())
+                .build();
+
+        WhistleData whistleData = WhistleData.builder()
+                .userId(whistleRequest.getUserId())
+                .whistleObj(whistleObj)
+                .binaryImage(whistleRequest.getBinaryImage())
                 .timestamp(whistleRequest.getTimestamp())
                 .build();
-        whistleRepository.save(whistle);
-
-        storeWhistle.storeWhistleData(whistle);
-        log.info("Got Whistle :: {}", whistle.getWid());
+        whistleDataRepository.save(whistleData);
     }
 
     public List<WhistleResponse> getAllWhistles(){
-        List<Whistle> whistles = whistleRepository.findAll();
+        List<WhistleData> whistles = whistleDataRepository.findAll();
         return whistles.stream().map(this::mapToWhistleResponse).toList();
     }
 
-    private WhistleResponse mapToWhistleResponse(Whistle whistle) {
+    private WhistleResponse mapToWhistleResponse(WhistleData whistleData) {
+        JSONObject whistleObj = new JSONObject(whistleData.getWhistleObj());
         return WhistleResponse.builder()
-                .wid(whistle.getWid())
-                .category(whistle.getCategory())
-                .subcategory(whistle.getSubcategory())
-                .latitude(whistle.getLatitude())
-                .longitude(whistle.getLongitude())
-                .bs64_image(whistle.getBs64_image())
-                .user_rating(whistle.getUser_rating())
-                .timestamp(whistle.getTimestamp())
+                .whistleId(whistleData.getWhistleId())
+
+                .category(whistleObj.getString("category"))
+                .subcategory(whistleObj.getString("subcategory"))
+                .latitude(String.valueOf(whistleObj.getDouble("latitude")))
+                .longitude(String.valueOf(whistleObj.getDouble("longitude")))
+                .userRating(String.valueOf(whistleObj.getDouble("userRating")))
+
+                .timestamp(whistleData.getTimestamp())
                 .build();
     }
+
 }

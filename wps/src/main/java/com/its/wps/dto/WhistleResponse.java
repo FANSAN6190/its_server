@@ -10,12 +10,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class WhistleResponse {
-    private String wid;
+    private String whistleId;
     private String category;
     private String subcategory;
     private String latitude;
     private String longitude;
-    private String bs64_image;
-    private String user_rating;
+    private String userRating;
     private String timestamp;
 }

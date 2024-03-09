@@ -1,25 +1,22 @@
 package com.its.wps.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.*;
 
-@Document(value="whistle")
+import java.io.Serializable;
+
+
+@Builder
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@Data
-public class Whistle {
-    @Id
-    private String wid;
+public class Whistle implements Serializable {
+    private String userId;
     private String category;
     private String subcategory;
     private String latitude;
     private String longitude;
-    private String bs64_image;
-    private String user_rating;
+    private String binaryImage;
+    private String userRating;
     private String timestamp;
 }
