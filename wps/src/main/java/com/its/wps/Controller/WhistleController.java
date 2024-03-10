@@ -19,7 +19,6 @@ public class WhistleController {
     public void createWhistle(@RequestBody WhistleRequest whistleRequest){
         whistleService.createWhistle(whistleRequest);
     }
-
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<WhistleResponse> getAllWhistles(){
