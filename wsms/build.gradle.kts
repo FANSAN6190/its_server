@@ -34,6 +34,7 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     implementation("io.github.cdimascio:java-dotenv:5.2.0")
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
 
 }
 

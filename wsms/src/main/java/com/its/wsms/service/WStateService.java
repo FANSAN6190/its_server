@@ -1,5 +1,6 @@
 package com.its.wsms.service;
 
+import com.its.wsms.client.WPSClient;
 import com.its.wsms.models.User;
 import com.its.wsms.models.UserWhistleList;
 import com.its.wsms.models.WState;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 public class WStateService {
     private final WStateRepository wStateRepository;
     private final UserRepository userRepository;
+    private final WPSClient wpsClient;
     public char getWhistleStatus(String whistleId){
         return wStateRepository.findById(whistleId)
                 .map(WState::getStatus)
@@ -28,11 +30,14 @@ public class WStateService {
         wStateRepository.save(wState);
     }
 
-
     public UserWhistleList findAllWhistleForGivenUser(String userId) {
         var user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found with id " + userId));
-        return null;
+        var whistles = wpsClient.findAllWhistleForGivenUser(userId);
+        return UserWhistleList.builder()
+                .userId(userId)
+                .whistleList(whistles)
+                .build();
     }
 
 //    public User findAllWhistleForGivenUser(String userId) {

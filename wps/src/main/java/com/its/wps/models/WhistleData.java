@@ -1,5 +1,4 @@
 package com.its.wps.models;
-
 import com.its.wps.dto.JsonObjectStringConverter;
 import jakarta.persistence.*;
 import lombok.*;

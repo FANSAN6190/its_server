@@ -5,6 +5,7 @@ import com.its.wps.dto.WhistleRequest;
 import com.its.wps.dto.WhistleResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,5 +24,11 @@ public class WhistleController {
     @ResponseStatus(HttpStatus.OK)
     public List<WhistleResponse> getAllWhistles(){
         return whistleService.getAllWhistles();
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<WhistleResponse>> getAllWhistles(@PathVariable("userId") String userId){
+
+        return ResponseEntity.ok(whistleService.findAllWhistleForGivenUser(userId));
     }
 }

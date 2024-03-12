@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -55,4 +56,23 @@ public class WhistleService {
                 .build();
     }
 
+    public List<WhistleResponse> findAllWhistleForGivenUser(String userId) {
+        List<WhistleData> whistleDataList = whistleDataRepository.findAllByUserId(userId);
+        return whistleDataList.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    private WhistleResponse convertToDto(WhistleData whistleData) {
+        Whistle whistleObj = whistleData.getWhistleObj();
+        WhistleResponse dto = new WhistleResponse();
+        dto.setWhistleId(whistleData.getWhistleId());
+        dto.setCategory(whistleObj.getCategory());
+        dto.setSubcategory(whistleObj.getSubcategory());
+        dto.setLatitude(whistleObj.getLatitude());
+        dto.setLongitude(whistleObj.getLongitude());
+        dto.setUserRating(whistleObj.getUserRating());
+        dto.setTimestamp(whistleData.getTimestamp());
+        return dto;
+    }
 }
