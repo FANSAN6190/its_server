@@ -1,8 +1,8 @@
-package com.its.wps.dto;
+package com.its.wsms.dto;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import com.its.wps.models.Whistle;
+import com.its.wsms.models.Whistle;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 import lombok.extern.slf4j.Slf4j;

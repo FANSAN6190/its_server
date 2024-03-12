@@ -1,16 +1,15 @@
-package com.its.wps.model;
+package com.its.wsms.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
-
+@Data
 @Builder
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Whistle implements Serializable {
+public class WhistleRequest {
     private String userId;
     private String category;
     private String subcategory;

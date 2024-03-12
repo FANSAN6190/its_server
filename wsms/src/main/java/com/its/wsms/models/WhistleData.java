@@ -1,6 +1,6 @@
-package com.its.wps.model;
+package com.its.wsms.models;
 
-import com.its.wps.dto.JsonObjectStringConverter;
+import com.its.wsms.dto.JsonObjectStringConverter;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnTransformer;
